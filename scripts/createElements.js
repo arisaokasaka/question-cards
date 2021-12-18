@@ -39,7 +39,7 @@ async function randomizedQuestionList () {
   let result = []
   let mutableQuestionList = []
 
-  await fetch("../data/selfIntroductionQuestions.json")
+  await fetch("./selfIntroductionQuestions.json")
   .then(res => res.json())
   .then(result => mutableQuestionList = result.questions)
   .catch(error => console.error("Error:", error));
