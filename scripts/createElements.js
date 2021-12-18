@@ -24,7 +24,7 @@ async function addCardElements () {
         transform: 'rotateY(360deg)'
       }], 600)
 
-      setTimeout(()=>{
+      setTimeout(() => {
         newCard.firstElementChild.classList.toggle('hidden')
         newCard.lastElementChild.classList.toggle('hidden')
         newCard.classList.toggle('card-back')
