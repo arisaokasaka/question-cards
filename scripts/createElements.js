@@ -1,4 +1,9 @@
-document.body.onload = addElements
+document.body.onload = mounted
+
+async function mounted () {
+  await addElements()
+  addClickEvent()
+}
 
 async function addElements () {
   const wholeContainer = document.getElementById("whole-container")
@@ -34,9 +39,9 @@ async function randomizedQuestionList () {
   const resultLength = mutableQuestionList.length
 
   for(let i = 0; i < resultLength - 1; i++) {
-    const selectedIndex = function() {
+    const selectedIndex = (function() {
       return Math.floor(Math.random() * mutableQuestionList.length - 1)
-    } ()
+    } ())
 
     result.push(mutableQuestionList[selectedIndex])
 
@@ -46,4 +51,13 @@ async function randomizedQuestionList () {
   }
 
   return result
+}
+
+function addClickEvent () {
+  const tiles = document.getElementsByClassName('tile')
+  for(let i = 0; i < tiles.length; i++) {
+    tiles[i].addEventListener('click', () => {
+      console.log('clicked');
+    }, false)
+  }
 }
