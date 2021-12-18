@@ -44,7 +44,7 @@ body {
   display: block;
   position: absolute;
   inset: 0;
-  background: center/16px no-repeat url('../images/heart.png');
+  background: center/16px no-repeat url('../public/images/heart.png');
 }
 
 .card.card-back {
