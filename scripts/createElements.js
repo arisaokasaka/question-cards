@@ -1,29 +1,36 @@
-document.body.onload = mounted
+document.body.onload = addCardElements
 
-async function mounted () {
-  await addElements()
-  addClickEvent()
-}
-
-async function addElements () {
+async function addCardElements () {
   const wholeContainer = document.getElementById("whole-container")
   const randomizedQuestions = await randomizedQuestionList()
 
-  for (let i = 1; i <= 32; i++) {
+  for (let i = 0; i < 32; ++i) {
+    const frontSide = document.createElement("p")
+    frontSide.appendChild(document.createTextNode("🧡"))
     
-    const displayedParagraph = document.createElement("p")
-    displayedParagraph.appendChild(document.createTextNode("🧡"))
+    const backSide = document.createElement("p")
+    backSide.className = "hidden"
+    backSide.appendChild(document.createTextNode(randomizedQuestions[i]))
     
-    const hiddenParagraph = document.createElement("p")
-    hiddenParagraph.style = "display: none;"
-    hiddenParagraph.appendChild(document.createTextNode(randomizedQuestions[i - 1]))
-    
-    const newDiv = document.createElement("div")
-    newDiv.className = "tile"
-    newDiv.appendChild(displayedParagraph)
-    newDiv.appendChild(hiddenParagraph)
+    const newCard = document.createElement("div")
+    newCard.className = "card"
+    newCard.appendChild(frontSide)
+    newCard.appendChild(backSide)
 
-    wholeContainer.appendChild(newDiv)
+    newCard.addEventListener('click', () => {
+      newCard.animate([{
+        transform: 'rotateY(0deg)'
+      },{
+        transform: 'rotateY(360deg)'
+      }], 600)
+
+      setTimeout(()=>{
+        newCard.firstElementChild.classList.toggle('hidden')
+        newCard.lastElementChild.classList.toggle('hidden')
+      }, 600)
+    }, false)
+
+    wholeContainer.appendChild(newCard)
   }
 }
 
@@ -38,9 +45,9 @@ async function randomizedQuestionList () {
 
   const resultLength = mutableQuestionList.length
 
-  for(let i = 0; i < resultLength - 1; i++) {
+  for(let i = 0; i < resultLength - 1; ++i) {
     const selectedIndex = (function() {
-      return Math.floor(Math.random() * mutableQuestionList.length - 1)
+      return Math.floor(Math.random() * mutableQuestionList.length)
     } ())
 
     result.push(mutableQuestionList[selectedIndex])
@@ -51,13 +58,4 @@ async function randomizedQuestionList () {
   }
 
   return result
-}
-
-function addClickEvent () {
-  const tiles = document.getElementsByClassName('tile')
-  for(let i = 0; i < tiles.length; i++) {
-    tiles[i].addEventListener('click', () => {
-      console.log('clicked');
-    }, false)
-  }
 }
