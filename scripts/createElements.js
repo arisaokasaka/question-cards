@@ -6,7 +6,7 @@ async function addCardElements () {
 
   for (let i = 0; i < 32; ++i) {
     const frontSide = document.createElement("p")
-    frontSide.appendChild(document.createTextNode("🧡"))
+    frontSide.className = 'card-front'
     
     const backSide = document.createElement("p")
     backSide.className = "hidden"
@@ -27,6 +27,7 @@ async function addCardElements () {
       setTimeout(()=>{
         newCard.firstElementChild.classList.toggle('hidden')
         newCard.lastElementChild.classList.toggle('hidden')
+        newCard.classList.toggle('card-back')
       }, 600)
     }, false)
 
