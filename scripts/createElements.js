@@ -41,7 +41,7 @@ async function randomizedQuestionList () {
 
   await fetch("./selfIntroductionQuestions.json")
   .then(res => res.json())
-  .then(result => mutableQuestionList = result.questions)
+  .then(result => mutableQuestionList = result)
   .catch(error => console.error("Error:", error));
 
   const resultLength = mutableQuestionList.length
